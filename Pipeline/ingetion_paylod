@@ -1,0 +1,27 @@
+resources:
+  jobs:
+    Retail_Inventory_Deployment:
+      name: Retail_Inventory_Deployment
+      tasks:
+        - task_key: Inventory_Data_Load
+          notebook_task:
+            notebook_path: /Workspace/Users/aditya.rana.datascience@gmail.com/Retal_Inventory_managment/BRONZE
+              RETAIL INVENTORY
+            source: WORKSPACE
+        - task_key: Inventory_Data_Transformation
+          depends_on:
+            - task_key: Inventory_Data_Load
+          notebook_task:
+            notebook_path: /Workspace/Users/aditya.rana.datascience@gmail.com/Retal_Inventory_managment/SILVER
+              RETAIL INVENTORY
+            source: WORKSPACE
+        - task_key: Gold__retail_Inventory
+          depends_on:
+            - task_key: Inventory_Data_Transformation
+          notebook_task:
+            notebook_path: /Workspace/Users/aditya.rana.datascience@gmail.com/Retal_Inventory_managment/GOLD
+              RETAIL INVENTORY
+            source: WORKSPACE
+      queue:
+        enabled: true
+      performance_target: PERFORMANCE_OPTIMIZED
